@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Interfaces\RabbitMQ\ProducerRepositoryInterface;
+use App\Repositories\RabbitMQ\ProducerRepository;
+use App\Repositories\Interfaces\RabbitMQ\ConsumerRepositoryInterface;
+use App\Repositories\RabbitMQ\ConsumerRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            ProducerRepositoryInterface::class,
+            ProducerRepository::class
+        );
+
+        $this->app->bind(
+            ConsumerRepositoryInterface::class,
+            ConsumerRepository::class
+        );
     }
 
     /**
