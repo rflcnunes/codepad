@@ -52,6 +52,16 @@ services:
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+    rabbitmq:
+        image: 'rabbitmq:3.8.9-management'
+        ports:
+            - '${FORWARD_RABBITMQ_PORT:-5672}:5672'
+            - '${FORWARD_RABBITMQ_DASHBOARD_PORT:-15672}:15672'
+        environment:
+            RABBITMQ_DEFAULT_USER: '${RABBITMQ_USERNAME}'
+            RABBITMQ_DEFAULT_PASS: '${RABBITMQ_PASSWORD}'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge

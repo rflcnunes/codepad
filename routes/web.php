@@ -3,6 +3,8 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 use Inertia\Inertia;
 
 /*
@@ -15,6 +17,19 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/send', function () {
+
+    $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
+
+    $channel = $connection->channel();
+    $channel->queue_declare('new-post', false, true, false, false);
+
+    $rabbitMsg = new AMQPMessage('New Post!');
+    $channel->basic_publish($rabbitMsg, '', 'new-post');
+
+    $channel->close();
+});
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
