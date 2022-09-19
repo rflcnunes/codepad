@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('posts.index')" :active="route().current('chirps.index')">
+                                <NavLink :href="route('posts.index')" :active="route().current('posts.index')">
                                     Posts
                                 </NavLink>
                             </div>
@@ -53,6 +53,9 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
+                                        <DropdownLink :href="route('posts.deleted-posts')" as="button">
+                                            Deleted Posts
+                                        </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
