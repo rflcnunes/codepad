@@ -21,7 +21,7 @@ const form = useForm({
                 <textarea
                     v-model="form.message"
                     placeholder="What's on your mind?"
-                    class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    class="block rounded-md w-full focus:outline-none focus:border-2 focus:border-indigo-500"
                 ></textarea>
                 <InputError :message="form.errors.message" class="mt-2" />
                 <PrimaryButton class="mt-4">Post</PrimaryButton>
