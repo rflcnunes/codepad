@@ -33,4 +33,8 @@ Route::resource('posts', PostController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+Route::get('/posts/deleted-posts', [PostController::class, 'showDeletedPosts'])
+    ->middleware(['auth', 'verified'])
+    ->name('posts.deleted-posts');
+
 require __DIR__.'/auth.php';
