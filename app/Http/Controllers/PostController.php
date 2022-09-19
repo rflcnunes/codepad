@@ -15,7 +15,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        // return 'Hello, World!';
         return Inertia::render('Posts/Index', [
             'posts' => Post::with('user:id,name')->latest()->get(),
         ]);
@@ -57,6 +56,17 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
+    }
+
+    public function showDeletedPosts()
+    {
+        return Inertia::render('Posts/DeletedPosts', [
+            'deleted_posts' => Post::onlyTrashed()
+                ->with('user:id,name')
+                ->where('user_id', auth()->id())
+                ->orderBy('deleted_at', 'desc')
+                ->get(),
+        ]);
     }
 
     /**
